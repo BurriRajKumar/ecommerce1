@@ -24,7 +24,7 @@ export default function Home() {
     }
 
     axios.post(
-      `http://localhost:4000/api/cart/add?userId=${userId}`,
+      `https://ecommerce1-c9ec.onrender.com/api/cart/add?userId=${userId}`,
       { productId, quantity: 1 }
     )
       .then(res => {
@@ -39,7 +39,7 @@ export default function Home() {
 
   // ✅ Fetch Products
   function fetchProducts() {
-    axios.get("http://localhost:4000/api/product")
+    axios.get("https://ecommerce1-c9ec.onrender.com/api/product")
       .then(res => {
         if (res.status === 200) {
           setProducts(res.data)
@@ -53,7 +53,7 @@ export default function Home() {
 
   // ✅ Delete Product (Admin Only)
   function deleteProduct(id) {
-    axios.delete(`http://localhost:4000/api/product/delete/${id}`)
+    axios.delete(`https://ecommerce1-c9ec.onrender.com/api/product/delete/${id}`)
       .then(res => {
         alert("Product deleted ✅")
         fetchProducts()

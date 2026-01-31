@@ -14,7 +14,7 @@ export default function AddToCart({ productId }) {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/api/cart/add?userId=${userId}`,
+        `https://ecommerce1-c9ec.onrender.com/api/cart/add?userId=${userId}`,
         {
           productId,
           quantity: Number(quantity),

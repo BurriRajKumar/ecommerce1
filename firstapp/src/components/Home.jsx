@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 export default function Home() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  
+
 
   const role = localStorage.getItem("role")
   const navigate = useNavigate()
@@ -20,17 +20,22 @@ export default function Home() {
     const userId = localStorage.getItem("userId")
 
     if (!userId) {
+
       alert("Login first to add products to cart ❌")
       navigate("/login")
       return
     }
 
     axios.post(
-      `http://localhost:4000/api/cart/add?userId=${userId}`,
+      `https://ecommerce1-c9ec.onrender.com/api/cart/add?userId=${userId}`,
       { productId, quantity: 1 }
     )
       .then(res => {
-        alert("Product added to cart ✅")
+        Swal.fire({
+          title: "Good job!",
+          text: "product added successfully to cart",
+          icon: "success"
+        });
         navigate("/cart")
       })
       .catch(err => {
@@ -41,7 +46,7 @@ export default function Home() {
 
   // ✅ Fetch Products
   function fetchProducts() {
-    axios.get("http://localhost:4000/api/product")
+    axios.get("https://ecommerce1-c9ec.onrender.com/api/product")
       .then(res => {
         if (res.status === 200) {
           setProducts(res.data)
@@ -55,7 +60,7 @@ export default function Home() {
 
   // ✅ Delete Product (Admin Only)
   function deleteProduct(id) {
-    axios.delete(`http://localhost:4000/api/product/delete/${id}`)
+    axios.delete(`https://ecommerce1-c9ec.onrender.com/api/product/delete/${id}`)
       .then(res => {
         alert("Product deleted ✅")
         fetchProducts()
@@ -84,15 +89,15 @@ export default function Home() {
                   <p className="card-text"><b>Available:</b> {i.Available}</p>
 
                   {role === "admin" ? (
-                    <button 
-                      onClick={() => deleteProduct(i._id)} 
+                    <button
+                      onClick={() => deleteProduct(i._id)}
                       className='btn btn-danger w-100'
                     >
                       Delete
                     </button>
                   ) : (
-                    <button 
-                      onClick={() => addToCart(i._id)} 
+                    <button
+                      onClick={() => addToCart(i._id)}
                       className='btn btn-warning text-white w-100'
                     >
                       Add to Cart

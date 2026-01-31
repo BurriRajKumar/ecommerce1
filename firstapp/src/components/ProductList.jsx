@@ -6,7 +6,7 @@ export default function ProductList() {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:4000/api/product/all")
+    axios.get("https://ecommerce1-c9ec.onrender.com/api/product/all")
       .then(res => setProducts(res.data))
   }, [])
 
